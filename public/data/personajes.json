@@ -1,0 +1,446 @@
+[
+  {
+    "id": "asta",
+    "nombre": "Asta",
+    "reino": "Trébol",
+    "escuadron": "Toro Negro",
+    "magia": "Antimagia",
+    "hojasGrimorio": 5,
+    "imagenUrl": "https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600&auto=format&fit=crop&q=80",
+    "emblemaUrl": "assets/emblemas/toro-negro.svg",
+    "perfilVisual": {
+      "colorPrimario": "#e11d48",
+      "colorBrillo": "#0f172a",
+      "ease": "power4.inOut",
+      "efectoEspecial": "shake"
+    },
+    "biografia": "Un joven huérfano nacido completamente desprovisto de poder mágico en un reino donde la magia define el estatus social. A través de un entrenamiento físico sobrehumano y una terquedad inquebrantable, Asta obtiene el legendario grimorio de cinco hojas que alberga el poder de la Antimagia y un demonio en su interior. Es miembro de la Orden de los Toros Negros y su meta innegociable es convertirse en el Rey Mago.",
+    "hechizos": [
+      {
+        "id": "asta-danma",
+        "nombre": "Espada Danma: Tajo de Antimagia",
+        "subtitulo": "Espada Asesina de Demonios",
+        "descripcion": "Invoca la enorme espada desoxidadora que puede desviar la magia enemiga con su parte plana y cortar o anular cualquier hechizo con su filo. Puede proyectar tajos oscuros de antimagia que destruyen barreras mágicas al instante.",
+        "videoUrl": "assets/videos/asta-danma.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 4,
+        "juego": {
+          "costoEstrellas": 0,
+          "cooldownMs": 3000,
+          "rol": "ataque",
+          "potencia": 85
+        }
+      },
+      {
+        "id": "asta-shukuma",
+        "nombre": "Espada Shukuma: Asimilación de Maná",
+        "subtitulo": "Espada Reductora de Demonios",
+        "descripcion": "Espada ligera de corte ágil capaz de absorber la magia de los aliados para disparar ráfagas cargadas de atributos elementales, o canalizar directamente cortes veloces de antimagia pura a corta distancia.",
+        "videoUrl": "assets/videos/asta-shukuma.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 4,
+        "juego": {
+          "costoEstrellas": 50,
+          "cooldownMs": 4500,
+          "rol": "dash",
+          "potencia": 90
+        }
+      },
+      {
+        "id": "asta-metsuma",
+        "nombre": "Espada Metsuma: Ruptura de Causalidad",
+        "subtitulo": "Espada Destructora de Demonios",
+        "descripcion": "Una hoja ceremonial con punta redondeada capaz de anular los efectos residuales de la magia y revertir la causalidad. Es capaz de purificar venenos, maldiciones ancestrales e incluso la reencarnación forzada.",
+        "videoUrl": "assets/videos/asta-metsuma.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 120,
+          "cooldownMs": 7000,
+          "rol": "escudo",
+          "potencia": 95
+        }
+      },
+      {
+        "id": "asta-black",
+        "nombre": "Forma Black Asta: Danza del Meteoro Negro",
+        "subtitulo": "Resonancia Demoníaca Completa",
+        "descripcion": "Al circular la antimagia por todo su cuerpo desde el brazo derecho, Asta despierta una poderosa ala negra y un cuerno demoníaco. Se lanza a velocidad supersónica persiguiendo densas acumulaciones de maná para asestar un golpe demoledor.",
+        "videoUrl": "assets/videos/asta-black.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 250,
+          "cooldownMs": 12000,
+          "rol": "definitiva",
+          "potencia": 150
+        }
+      }
+    ],
+    "juego": {
+      "velocidadBase": 130,
+      "vidaMaxima": 1200,
+      "spriteSheetUrl": "assets/sprites/asta.png"
+    }
+  },
+  {
+    "id": "yuno",
+    "nombre": "Yuno Grinberryall",
+    "reino": "Trébol",
+    "escuadron": "Amanecer Dorado",
+    "magia": "Viento y Espíritu Sylph",
+    "hojasGrimorio": 4,
+    "imagenUrl": "https://images.unsplash.com/photo-1563089145-599997674d42?w=600&auto=format&fit=crop&q=80",
+    "emblemaUrl": "assets/emblemas/amanecer-dorado.svg",
+    "perfilVisual": {
+      "colorPrimario": "#10b981",
+      "colorBrillo": "#6ee7b7",
+      "ease": "sine.inOut",
+      "efectoEspecial": "float"
+    },
+    "biografia": "Criado junto a Asta en la iglesia del pueblo de Hage. Bendecido por el maná desde su nacimiento, recibió el legendario grimorio de cuatro hojas que alguna vez perteneció al primer Rey Mago. Portador del espíritu primordial del viento Sylph y vicecapitán de Amanecer Dorado, su destino se entrelaza con el trono perdido del Reino de la Pica.",
+    "hechizos": [
+      {
+        "id": "yuno-torre",
+        "nombre": "Magia de Viento: Torre de Tormenta",
+        "subtitulo": "Tornado Ciclónico Cortante",
+        "descripcion": "Genera una columna vertiginosa de vientos huracanados que arrastra a múltiples enemigos hacia los cielos mientras incontables hojas de aire afiladas desintegran sus defensas.",
+        "videoUrl": "assets/videos/yuno-torre.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 3,
+        "juego": {
+          "costoEstrellas": 0,
+          "cooldownMs": 3500,
+          "rol": "ataque",
+          "potencia": 80
+        }
+      },
+      {
+        "id": "yuno-storm",
+        "nombre": "Asimilación Espiritual: Spirit Storm",
+        "subtitulo": "Tormenta Radiante del Espíritu",
+        "descripcion": "Fusionando su maná en sincronía perfecta con Sylph, Yuno concentra un haz colosal de maná verde esmeralda que pulveriza cualquier oposición en una línea recta implacable.",
+        "videoUrl": "assets/videos/yuno-storm.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 4,
+        "juego": {
+          "costoEstrellas": 70,
+          "cooldownMs": 5000,
+          "rol": "ataque",
+          "potencia": 95
+        }
+      },
+      {
+        "id": "yuno-zephyr",
+        "nombre": "Espíritu de Céfiro (Spirit of Zephyr)",
+        "subtitulo": "Espada de Viento Condensado",
+        "descripcion": "Yuno comprime el viento ambiente y los fragmentos residuales de maná flotantes en el campo de batalla para forjar una espada de alta vibración que desintegra barreras al contacto.",
+        "videoUrl": "assets/videos/yuno-zephyr.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 150,
+          "cooldownMs": 8000,
+          "rol": "dash",
+          "potencia": 110
+        }
+      },
+      {
+        "id": "yuno-saint",
+        "nombre": "Saint Spirit Mirage: Etapa Santa",
+        "subtitulo": "Purificación Celestial del Maná",
+        "descripcion": "Alcanzando la cúspide de la Etapa Santa junto al espíritu del viento, Yuno purifica cualquier indicio de maná demoníaco desatando un despliegue de cuchillas celestiales y un halo de gracia divina.",
+        "videoUrl": "assets/videos/yuno-saint.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 300,
+          "cooldownMs": 14000,
+          "rol": "definitiva",
+          "potencia": 160
+        }
+      }
+    ],
+    "juego": {
+      "velocidadBase": 145,
+      "vidaMaxima": 1050,
+      "spriteSheetUrl": "assets/sprites/yuno.png"
+    }
+  },
+  {
+    "id": "noelle",
+    "nombre": "Noelle Silva",
+    "reino": "Trébol",
+    "escuadron": "Toro Negro",
+    "magia": "Magia de Agua Real",
+    "hojasGrimorio": 3,
+    "imagenUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&auto=format&fit=crop&q=80",
+    "emblemaUrl": "assets/emblemas/toro-negro.svg",
+    "perfilVisual": {
+      "colorPrimario": "#06b6d4",
+      "colorBrillo": "#38bdf8",
+      "ease": "back.out(1.4)",
+      "efectoEspecial": "ripple"
+    },
+    "biografia": "Princesa de la Casa Real Silva. Marcada por la trágica pérdida de su madre Acier y el rechazo de sus hermanos debido a su descontrol de maná inicial, encontró su valentía y verdadera familia en los Toros Negros. Su magia de agua es una de las más densas y destructivas de todo el reino.",
+    "hechizos": [
+      {
+        "id": "noelle-nido",
+        "nombre": "Nido del Dragón Acuático",
+        "subtitulo": "Domo Defensivo Impenetrable",
+        "descripcion": "Crea una esfera giratoria de agua de alta densidad que neutraliza y desvía cualquier ataque mágico enemigo que choque contra su superficie, resguardando a todos los aliados.",
+        "videoUrl": "assets/videos/noelle-nido.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 3,
+        "juego": {
+          "costoEstrellas": 0,
+          "cooldownMs": 4000,
+          "rol": "escudo",
+          "potencia": 85
+        }
+      },
+      {
+        "id": "noelle-rugido",
+        "nombre": "Rugido del Dragón del Mar",
+        "subtitulo": "Vórtice Colosal Ofensivo",
+        "descripcion": "Modela un dragón marino gigantesco compuesto de torrentes presurizados que brama y embiste a la velocidad de un proyectil, devorando y demoliendo defensas enemigas a su paso.",
+        "videoUrl": "assets/videos/noelle-rugido.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1498084393753-b411b2d26b34?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 80,
+          "cooldownMs": 6000,
+          "rol": "ataque",
+          "potencia": 115
+        }
+      },
+      {
+        "id": "noelle-valkiria",
+        "nombre": "Armadura de Valkiria",
+        "subtitulo": "Manto de Combate Real",
+        "descripcion": "Cubre su silueta con una armadura translúcida de agua pura que le permite flotar y deslizarse por el maná ambiental a velocidades extremas, atacando con una lanza de flujo continuo.",
+        "videoUrl": "assets/videos/noelle-valkiria.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 180,
+          "cooldownMs": 9000,
+          "rol": "dash",
+          "potencia": 125
+        }
+      },
+      {
+        "id": "noelle-leviatan",
+        "nombre": "Forma Dragón Santo: Rugido de Leviatán",
+        "subtitulo": "Soberanía de las Profundidades",
+        "descripcion": "Desata una inundación de maná puro que atrapa al oponente en un maremoto abisal antes de que una lanza de agua dorada desintegre el núcleo mágico del adversario.",
+        "videoUrl": "assets/videos/noelle-leviatan.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1468581264429-2548ef9eb732?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 320,
+          "cooldownMs": 15000,
+          "rol": "definitiva",
+          "potencia": 170
+        }
+      }
+    ],
+    "juego": {
+      "velocidadBase": 125,
+      "vidaMaxima": 1100,
+      "spriteSheetUrl": "assets/sprites/noelle.png"
+    }
+  },
+  {
+    "id": "yami",
+    "nombre": "Yami Sukehiro",
+    "reino": "Trébol",
+    "escuadron": "Toro Negro",
+    "magia": "Magia de Oscuridad",
+    "hojasGrimorio": 3,
+    "imagenUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=80",
+    "emblemaUrl": "assets/emblemas/toro-negro.svg",
+    "perfilVisual": {
+      "colorPrimario": "#8b5cf6",
+      "colorBrillo": "#c084fc",
+      "ease": "expo.inOut",
+      "efectoEspecial": "slash"
+    },
+    "biografia": "Capitán de la Orden de los Toros Negros y forastero del País del Sol Naciente. Poseedor de la inusual y codiciada magia de oscuridad, capaz de interactuar con el inframundo y absorber hechizos. Combina su espada japonesa con la lectura intuitiva del Ki para forzar a sus subordinados y a sí mismo a superar sus límites.",
+    "hechizos": [
+      {
+        "id": "yami-corte",
+        "nombre": "Corte Oscuro Enfundado (Avidya Slash)",
+        "subtitulo": "Desenvaine Relámpago",
+        "descripcion": "Concentra la magia de oscuridad en su katana enfundada y la desenvaina con precisión quirúrgica, disparando una densa cuchilla sombría que absorbe la luz y despedaza el objetivo.",
+        "videoUrl": "assets/videos/yami-corte.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 4,
+        "juego": {
+          "costoEstrellas": 0,
+          "cooldownMs": 3000,
+          "rol": "ataque",
+          "potencia": 95
+        }
+      },
+      {
+        "id": "yami-agujero",
+        "nombre": "Agujero Negro (Black Hole)",
+        "subtitulo": "Singularidad Gravitatoria",
+        "descripcion": "Genera una pequeña esfera de oscuridad absoluta sobre su mano izquierda que ejerce una atracción gravitatoria irresistible, succionando y devorando cualquier hechizo mágico cercano.",
+        "videoUrl": "assets/videos/yami-agujero.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 4,
+        "juego": {
+          "costoEstrellas": 90,
+          "cooldownMs": 6500,
+          "rol": "escudo",
+          "potencia": 100
+        }
+      },
+      {
+        "id": "yami-dimension",
+        "nombre": "Corte Dimensional Desatado",
+        "subtitulo": "Dark Cloaked Dimension Slash",
+        "descripcion": "Canaliza cantidades ingentes de maná oscuro en la hoja de su katana hasta rasgar el propio tejido espacial y dimensional, cortando de forma instantánea objetos a kilómetros de distancia.",
+        "videoUrl": "assets/videos/yami-dimension.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 220,
+          "cooldownMs": 10000,
+          "rol": "ataque",
+          "potencia": 145
+        }
+      },
+      {
+        "id": "yami-lluvia",
+        "nombre": "Lluvia de Tajo Negro: Supera tus Límites",
+        "subtitulo": "Ruptura del Abismo Infinito",
+        "descripcion": "Desatando la totalidad de su Zona de Maná, ejecuta una ráfaga continua de tajos dimensionales omnidireccionales que eclipsan la luz del escenario y aniquilan cualquier resistencia.",
+        "videoUrl": "assets/videos/yami-lluvia.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 350,
+          "cooldownMs": 16000,
+          "rol": "definitiva",
+          "potencia": 180
+        }
+      }
+    ],
+    "juego": {
+      "velocidadBase": 135,
+      "vidaMaxima": 1350,
+      "spriteSheetUrl": "assets/sprites/yami.png"
+    }
+  },
+  {
+    "id": "julius",
+    "nombre": "Julius Novachrono",
+    "reino": "Trébol",
+    "escuadron": "Caballeros Mágicos",
+    "magia": "Magia de Tiempo",
+    "hojasGrimorio": 3,
+    "imagenUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&auto=format&fit=crop&q=80",
+    "emblemaUrl": "assets/emblemas/rey-mago.svg",
+    "perfilVisual": {
+      "colorPrimario": "#eab308",
+      "colorBrillo": "#fef08a",
+      "ease": "power2.inOut",
+      "efectoEspecial": "float"
+    },
+    "biografia": "El 28º Rey Mago del Reino del Trébol. Obsesionado con descubrir magias raras y variadas, sueña con un reino sin discriminación de clases donde todos puedan cooperar y florecer. Su grimorio es único en el mundo: no tiene portadas y sus páginas son infinitas.",
+    "hechizos": [
+      {
+        "id": "julius-chrono-stasis",
+        "nombre": "Chrono Stasis: Prisión Temporal",
+        "subtitulo": "Detención del Flujo Temporal",
+        "descripcion": "Encierra al objetivo dentro de una esfera de tiempo suspendido donde nada se mueve ni envejece, incapacitándolo sin derramar una gota de sangre.",
+        "videoUrl": "assets/videos/julius-stasis.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 100,
+          "cooldownMs": 5000,
+          "rol": "escudo",
+          "potencia": 110
+        }
+      },
+      {
+        "id": "julius-chrono-anastasis",
+        "nombre": "Chrono Anastasis: Rebobinado del Destino",
+        "subtitulo": "Regeneración Cuántica del Reino",
+        "descripcion": "Consume el tiempo robado y acumulado a lo largo de décadas para revertir el daño infligido a una escala geográfica nacional, restaurando vidas y ciudades enteras.",
+        "videoUrl": "assets/videos/julius-anastasis.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 400,
+          "cooldownMs": 20000,
+          "rol": "definitiva",
+          "potencia": 200
+        }
+      }
+    ],
+    "juego": {
+      "velocidadBase": 150,
+      "vidaMaxima": 1250,
+      "spriteSheetUrl": "assets/sprites/julius.png"
+    }
+  },
+  {
+    "id": "mereoleona",
+    "nombre": "Mereoleona Vermillion",
+    "reino": "Trébol",
+    "escuadron": "Reyes León Carmesí",
+    "magia": "Magia de Fuego y Zona de Maná",
+    "hojasGrimorio": 3,
+    "imagenUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80",
+    "emblemaUrl": "assets/emblemas/leon-carmesi.svg",
+    "perfilVisual": {
+      "colorPrimario": "#f97316",
+      "colorBrillo": "#fdba74",
+      "ease": "power4.out",
+      "efectoEspecial": "shake"
+    },
+    "biografia": "La indomable Leona Incandescente de la Casa Vermillion. Rechazó los palacios para vivir en regiones de maná salvaje en volcanes activos. Es una maestra incomparable del combate cuerpo a cuerpo y la Zona de Maná, capaz de incinerar hechizos rivales a puño limpio.",
+    "hechizos": [
+      {
+        "id": "mereo-calidus",
+        "nombre": "Calidus Brachium: Puño de Fuego Sagrado",
+        "subtitulo": "Impacto Volcánico Concentrado",
+        "descripcion": "Recubre sus puños con llamaradas de altísima temperatura e impacta a velocidades sónicas, calcinando el maná y la armadura del oponente en un instante.",
+        "videoUrl": "assets/videos/mereo-calidus.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 50,
+          "cooldownMs": 3500,
+          "rol": "ataque",
+          "potencia": 120
+        }
+      },
+      {
+        "id": "mereo-purgatorio",
+        "nombre": "Calidus Brachium Purgatorio",
+        "subtitulo": "Infierno Omnidireccional de Zona de Maná",
+        "descripcion": "Toma control total del maná de todo el espacio circundante para desatar una tempestad de puñetazos ardientes desde todas las direcciones al mismo tiempo.",
+        "videoUrl": "assets/videos/mereo-purgatorio.mp4",
+        "posterUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&auto=format&fit=crop&q=80",
+        "nivelPoder": 5,
+        "juego": {
+          "costoEstrellas": 280,
+          "cooldownMs": 13000,
+          "rol": "definitiva",
+          "potencia": 175
+        }
+      }
+    ],
+    "juego": {
+      "velocidadBase": 140,
+      "vidaMaxima": 1300,
+      "spriteSheetUrl": "assets/sprites/mereoleona.png"
+    }
+  }
+]

@@ -1,0 +1,138 @@
+[
+  {
+    "id": "reino-trebol",
+    "slug": "trebol",
+    "nombre": "Trébol",
+    "tituloCompleto": "Reino del Trébol (Clover Kingdom)",
+    "emblemaUrl": "assets/emblemas/reino-trebol.svg",
+    "perfilVisual": {
+      "colorPrimario": "#22c55e",
+      "colorBrillo": "#86efac",
+      "ease": "power3.out",
+      "efectoEspecial": "float"
+    },
+    "resumen": "El Reino del Trébol está bendecido por la fertilidad y la variedad inagotable de atributos mágicos. Sus grimorios portan tréboles: las tres primeras hojas simbolizan la Esperanza, la Fe y el Amor; la cuarta hoja otorga la Buena Fortuna; y en la quinta... anida un Demonio. Protegido por los Nueve Escuadrones de Caballeros Mágicos bajo el mando del Rey Mago.",
+    "escenarios": [
+      {
+        "id": "trebol-capital",
+        "nombre": "Capital Real y Castillo del Trébol",
+        "subtitulo": "Corazón de la Nobleza y Realeza",
+        "descripcion": "Una majestuosa metrópoli amurallada donde convergen las familias reales Kira, Silva y Vermillion. Es la sede del Palacio Central y el coliseo de exámenes de los Caballeros Mágicos.",
+        "imagenUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "trebol-hage",
+        "nombre": "Aldea de Hage y Calavera del Demonio",
+        "subtitulo": "Región Olvidada",
+        "descripcion": "Ubicada en los márgenes de la Región Olvidada, hogar de la iglesia donde crecieron Asta y Yuno, a la sombra de los restos gigantescos del demonio derrotado por el primer Rey Mago, Lemiel Silvamillion Clover.",
+        "imagenUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "trebol-toros-base",
+        "nombre": "Sede Cambiante de los Toros Negros",
+        "subtitulo": "Fortaleza Modular de Henry Legolant",
+        "descripcion": "Un castillo desordenado que reconfigura sus habitaciones y pasillos constantemente mediante la magia de recombinación de Henry. Refugio de los magos más extravagantes y rebeldes del reino.",
+        "imagenUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "id": "reino-pica",
+    "slug": "pica",
+    "nombre": "Pica",
+    "tituloCompleto": "Reino de la Pica (Spade Kingdom)",
+    "emblemaUrl": "assets/emblemas/reino-pica.svg",
+    "perfilVisual": {
+      "colorPrimario": "#3b82f6",
+      "colorBrillo": "#93c5fd",
+      "ease": "power4.inOut",
+      "efectoEspecial": "shake"
+    },
+    "resumen": "Una gélida y despiadada nación situada al norte, rodeada por ventiscas eternas. Históricamente gobernada por la pacífica dinastía Grinberryall, hasta que la siniestra Tríada Oscura dio un golpe de estado e implementó contratos demoníacos para abrir las puertas del Árbol de Qliphoth.",
+    "escenarios": [
+      {
+        "id": "pica-fortaleza",
+        "nombre": "Castillo Real de la Pica",
+        "subtitulo": "Trono de Hielo y Sombras",
+        "descripcion": "Una enorme fortificación de arquitectura militar gótica reforzada con magia demoníaca que extrae el maná vital de sus propios ciudadanos para alimentar fortalezas móviles.",
+        "imagenUrl": "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1517824806704-9040b037703b?w=800&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "pica-qliphoth",
+        "nombre": "Cámara del Árbol de Qliphoth",
+        "subtitulo": "Canal del Inframundo",
+        "descripcion": "El oscuro monumento mágico erigido para entrelazar el mundo terrenal con los siete niveles del inframundo mediante el sacrificio de magos de magia de oscuridad y árbol de mundos.",
+        "imagenUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "id": "reino-corazon",
+    "slug": "corazon",
+    "nombre": "Corazón",
+    "tituloCompleto": "Reino del Corazón (Heart Kingdom)",
+    "emblemaUrl": "assets/emblemas/reino-corazon.svg",
+    "perfilVisual": {
+      "colorPrimario": "#ec4899",
+      "colorBrillo": "#fbcfe8",
+      "ease": "sine.inOut",
+      "efectoEspecial": "ripple"
+    },
+    "resumen": "Ubicado al suroeste del continente, es un paraíso natural rebosante de agua y vegetación viva. Protegido por la Reina Loropechika y el Espíritu del Agua Undine, sus magos dominan el Método de Maná, inscribiendo runas naturales para potenciar hechizos a escalas colosales.",
+    "escenarios": [
+      {
+        "id": "corazon-palacio",
+        "nombre": "Palacio Acuático de Loropechika",
+        "subtitulo": "Cuna del Maná Natural",
+        "descripcion": "Un palacio sereno rodeado de cascadas eternas e interminables jardines suspendidos donde el espíritu Undine cuida de la sabiduría de todas las generaciones de reinas.",
+        "imagenUrl": "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "corazon-guardianes",
+        "nombre": "Santuario de los Guardianes Espirituales",
+        "subtitulo": "Entrenamiento de Runas de Maná",
+        "descripcion": "El centro sagrado donde los magos de Etapa Cero perfeccionan las Matrices Rúnicas de la Naturaleza (fuego, tierra, viento, rayo y plantas).",
+        "imagenUrl": "https://images.unsplash.com/photo-1511497584788-87676104235f?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1511497584788-87676104235f?w=800&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "id": "reino-diamante",
+    "slug": "diamante",
+    "nombre": "Diamante",
+    "tituloCompleto": "Reino del Diamante (Diamond Kingdom)",
+    "emblemaUrl": "assets/emblemas/reino-diamante.svg",
+    "perfilVisual": {
+      "colorPrimario": "#a855f7",
+      "colorBrillo": "#e9d5ff",
+      "ease": "expo.inOut",
+      "efectoEspecial": "slash"
+    },
+    "resumen": "Una nación árida y rocosa carente de recursos naturales. Para asegurar su supervivencia, recurrió a la ciencia mágica oscura de Morris, injertando piedras mágicas en niños magos para forzar afinidades artificiales y crear los implacables 'Ocho Generales Brillantes'.",
+    "escenarios": [
+      {
+        "id": "diamante-minas",
+        "nombre": "Laboratorios Subterráneos de Morris",
+        "subtitulo": "Centro de Quimeras Mágicas",
+        "descripcion": "Instalaciones secretas excavadas en la roca donde se fusionaron grimorios y fragmentos mágicos en magos como Mars y Fana durante sangrientos experimentos de selección forzosa.",
+        "imagenUrl": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=800&auto=format&fit=crop&q=80"
+      },
+      {
+        "id": "diamante-fortaleza",
+        "nombre": "Baliza Fronteriza del Diamante",
+        "subtitulo": "Frente Militar de Asalto",
+        "descripcion": "Guarnición fortificada con cañones de condensación mágica ubicada en la frontera este con el Reino del Trébol, escenario de sangrientas escaramuzas entre órdenes de caballería.",
+        "imagenUrl": "https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?w=800&auto=format&fit=crop&q=80",
+        "posterUrl": "https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?w=800&auto=format&fit=crop&q=80"
+      }
+    ]
+  }
+]
