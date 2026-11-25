@@ -1,4 +1,4 @@
-import { Injectable, inject, signal, effect } from '@angular/core';
+import { Injectable, inject, signal, effect, computed } from '@angular/core';
 import { GrimorioStateService } from './grimorio-state.service';
 import { PerfilAnimacion } from '../models/personaje.model';
 
@@ -13,27 +13,35 @@ export const TEMA_DEFAULT: PerfilAnimacion = {
   providedIn: 'root'
 })
 export class TemaMagicoService {
-  private grimorioState = inject(GrimorioStateService);
+  private readonly grimorioState = inject(GrimorioStateService);
 
-  readonly temaActual = signal<PerfilAnimacion>(TEMA_DEFAULT);
+  private readonly _temaManual = signal<PerfilAnimacion | null>(null);
+
+  // Computed reactivo puro derivado de la entidad activa o previsualización manual en hover
+  readonly temaActual = computed<PerfilAnimacion>(() => {
+    const manual = this._temaManual();
+    if (manual) return manual;
+    const entidad = this.grimorioState.entidadActiva();
+    if (entidad && entidad.perfilVisual) {
+      return entidad.perfilVisual;
+    }
+    return TEMA_DEFAULT;
+  });
 
   constructor() {
-    // Reacciona en tiempo real al cambio de entidad activa en el grimorio
+    // Inyección reactiva de variables CSS en documentElement
     effect(() => {
-      const entidad = this.grimorioState.entidadActiva();
-      if (entidad && entidad.perfilVisual) {
-        this.temaActual.set(entidad.perfilVisual);
-        this.aplicarVariablesCss(entidad.perfilVisual);
-      } else {
-        this.temaActual.set(TEMA_DEFAULT);
-        this.aplicarVariablesCss(TEMA_DEFAULT);
-      }
+      const tema = this.temaActual();
+      this.aplicarVariablesCss(tema);
     });
   }
 
   setTemaManual(perfil: PerfilAnimacion) {
-    this.temaActual.set(perfil);
-    this.aplicarVariablesCss(perfil);
+    this._temaManual.set(perfil);
+  }
+
+  resetTemaManual() {
+    this._temaManual.set(null);
   }
 
   private aplicarVariablesCss(perfil: PerfilAnimacion) {

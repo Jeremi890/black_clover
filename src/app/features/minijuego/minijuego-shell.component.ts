@@ -11,7 +11,7 @@ import { Personaje } from '../../core/models/personaje.model';
   imports: [CommonModule, RouterLink],
   template: `
     <main class="min-h-screen pt-24 pb-20 px-4 max-w-5xl mx-auto text-center" aria-labelledby="minijuego-title">
-      <header class="p-8 rounded-3xl bg-black/60 border border-amber-500/40 backdrop-blur-md shadow-2xl">
+      <header class="p-8 rounded-3xl bg-[#0a0a0f]/90 border border-amber-500/40 shadow-2xl">
         <span class="text-xs uppercase font-mono tracking-widest text-amber-400 block mb-2">
           Módulo de Batalla Runner (Stand-by)
         </span>

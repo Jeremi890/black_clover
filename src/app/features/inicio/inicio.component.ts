@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DatosCloverService } from '../../core/services/datos-clover.service';
@@ -6,19 +6,20 @@ import { GrimorioStateService } from '../../core/services/grimorio-state.service
 import { ProgresoJugadorService } from '../../core/services/progreso-jugador.service';
 import { FEATURE_FLAGS } from '../../core/config/feature-flags';
 import { TarjetaPersonajeComponent } from '../personajes/tarjeta-personaje.component';
-import { EmblemaSvgComponent } from '../../shared/components/emblema-svg/emblema-svg.component';
+import { EmblemaSvgComponent, TipoEmblema } from '../../shared/components/emblema-svg/emblema-svg.component';
 import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive';
+import { Reino } from '../../core/models/reino.model';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
   imports: [CommonModule, RouterLink, TarjetaPersonajeComponent, EmblemaSvgComponent, AuraHoverDirective],
   template: `
-    <main class="min-h-screen pt-20 pb-24 overflow-hidden relative" aria-labelledby="hero-title">
+    <div class="min-h-screen pt-20 pb-24 overflow-hidden relative" aria-labelledby="hero-title">
       <!-- ================= HERO SECTION CINEMÁTICA ================= -->
       <section class="relative px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pt-12 pb-20 text-center flex flex-col items-center">
         <!-- Badge de Grimorio -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-amber-500/40 backdrop-blur-md text-amber-300 text-xs font-mono uppercase tracking-widest mb-6 shadow-xl">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/80 border border-amber-500/40 text-amber-300 text-xs font-mono uppercase tracking-widest mb-6 shadow-xl">
           <app-emblema-svg tipo="trebol-5" [size]="18" [glow]="true"></app-emblema-svg>
           <span>Black Clover • Experiencia 3D Interactiva</span>
         </div>
@@ -40,18 +41,18 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
           </p>
         </div>
 
-        <!-- Botones de Acción Principal -->
+        <!-- Accesos Directos Principales -->
         <div class="mt-8 flex flex-wrap gap-4 justify-center items-center">
           <a
             routerLink="/personajes"
-            class="px-8 py-4 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-fantasy text-sm font-bold tracking-widest uppercase shadow-2xl transition-all duration-300 hover:scale-105 magic-glow"
+            class="px-8 py-4 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-fantasy text-sm font-bold tracking-widest uppercase shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
           >
-            Abrir Grimorios de Magos
+            Abrir Galería de Magos
           </a>
 
           <a
             routerLink="/reinos"
-            class="px-8 py-4 rounded-2xl bg-black/70 hover:bg-black/90 border border-amber-500/50 hover:border-amber-400 text-amber-300 font-fantasy text-sm font-bold tracking-widest uppercase backdrop-blur-md transition-all duration-300 hover:scale-105"
+            class="px-8 py-4 rounded-2xl bg-black/85 hover:bg-black/95 border border-amber-500/50 hover:border-amber-400 text-amber-300 font-fantasy text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 cursor-pointer"
           >
             Mapa de los 4 Reinos
           </a>
@@ -59,17 +60,17 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
 
         <!-- HUD Rápido de Estado y Stand-by -->
         <div class="mt-12 flex flex-wrap items-center justify-center gap-4 text-xs font-mono">
-          <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/60 border border-amber-500/30 text-amber-300 shadow">
+          <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/75 border border-amber-500/30 text-amber-300 shadow">
             <app-emblema-svg tipo="estrella" [size]="16" [glow]="false"></app-emblema-svg>
             <span>Estrellas Mágicas: <strong>{{ estrellasTotales() }}</strong></span>
           </div>
 
-          <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/60 border border-slate-700 text-slate-400">
+          <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/75 border border-slate-700 text-slate-400">
             <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
             <span>Motor 3D: GSAP Timeline + CSS 3D Preserve</span>
           </div>
 
-          <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/60 border border-slate-800 text-slate-400">
+          <div class="flex items-center gap-2 px-4 py-2 rounded-xl bg-black/75 border border-slate-800 text-slate-400">
             <span class="w-2 h-2 rounded-full" [class.bg-emerald-500]="minijuegoHabilitado" [class.bg-slate-600]="!minijuegoHabilitado"></span>
             <span>Minijuego Runner: {{ minijuegoHabilitado ? 'Activo' : 'Stand-by (0 KB)' }}</span>
           </div>
@@ -80,7 +81,7 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
       <section class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12" aria-labelledby="destacados-title">
         <div class="flex items-end justify-between mb-8">
           <div>
-            <span class="text-xs font-mono uppercase tracking-widest text-rose-500">
+            <span class="text-xs font-mono uppercase tracking-widest text-rose-500 font-bold">
               Grimorios de Combate
             </span>
             <h2 id="destacados-title" class="text-3xl font-black font-fantasy text-amber-100 tracking-wide mt-1">
@@ -90,17 +91,16 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
 
           <a
             routerLink="/personajes"
-            class="text-xs font-fantasy uppercase tracking-wider text-amber-400 hover:text-amber-200 transition-colors"
+            class="text-xs font-fantasy uppercase tracking-wider text-amber-400 hover:text-amber-200 transition-colors font-semibold"
           >
             Ver Todos los Magos &rarr;
           </a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <app-tarjeta-personaje
-            *ngFor="let p of personajesDestacados()"
-            [personaje]="p"
-          ></app-tarjeta-personaje>
+          @for (p of personajesDestacados(); track p.id) {
+            <app-tarjeta-personaje [personaje]="p"></app-tarjeta-personaje>
+          }
         </div>
       </section>
 
@@ -108,7 +108,7 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
       <section class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto py-12 border-t border-amber-900/30" aria-labelledby="reinos-preview-title">
         <div class="flex items-end justify-between mb-8">
           <div>
-            <span class="text-xs font-mono uppercase tracking-widest text-amber-500">
+            <span class="text-xs font-mono uppercase tracking-widest text-amber-500 font-bold">
               Atlas y Crónicas
             </span>
             <h2 id="reinos-preview-title" class="text-3xl font-black font-fantasy text-amber-100 tracking-wide mt-1">
@@ -118,69 +118,70 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
 
           <a
             routerLink="/reinos"
-            class="text-xs font-fantasy uppercase tracking-wider text-amber-400 hover:text-amber-200 transition-colors"
+            class="text-xs font-fantasy uppercase tracking-wider text-amber-400 hover:text-amber-200 transition-colors font-semibold"
           >
-            Explorar Atlas &rarr;
+            Explorar Atlas Continental &rarr;
           </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div
-            *ngFor="let r of reinos()"
-            (click)="abrirReino(r)"
-            appAuraHover
-            class="p-6 rounded-2xl bg-gradient-to-b from-[#181310] to-[#0a0705] border border-amber-900/40 hover:border-amber-500/50 cursor-pointer transition-all duration-300 flex flex-col justify-between group shadow-lg"
-          >
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <app-emblema-svg
-                  [tipo]="obtenerTipoEmblema(r.nombre)"
-                  [size]="36"
-                  [color]="r.perfilVisual.colorPrimario"
-                  [glow]="true"
-                ></app-emblema-svg>
-                <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-black/60 text-slate-400 border border-slate-700/60">
-                  {{ r.escenarios?.length || 0 }} Regiones
-                </span>
+          @for (r of reinos(); track r.id) {
+            <div
+              (click)="abrirReino(r)"
+              appAuraHover
+              class="p-6 rounded-2xl bg-gradient-to-b from-[#181310] to-[#0a0705] border border-amber-900/40 hover:border-amber-500/50 cursor-pointer transition-all duration-300 flex flex-col justify-between group shadow-lg"
+            >
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <app-emblema-svg
+                    [tipo]="obtenerTipoEmblema(r.nombre)"
+                    [size]="36"
+                    [color]="r.perfilVisual.colorPrimario"
+                    [glow]="true"
+                  ></app-emblema-svg>
+                  <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-black/70 text-slate-400 border border-slate-700/60">
+                    {{ r.escenarios.length || 0 }} Regiones
+                  </span>
+                </div>
+
+                <h3 class="text-lg font-bold font-fantasy text-amber-100 group-hover:text-amber-300 transition-colors">
+                  {{ r.nombre }}
+                </h3>
+                <p class="text-xs text-slate-400 font-serif line-clamp-3 mt-2 leading-relaxed">
+                  {{ r.resumen }}
+                </p>
               </div>
 
-              <h3 class="text-lg font-bold font-fantasy text-amber-100 group-hover:text-amber-300 transition-colors">
-                {{ r.nombre }}
-              </h3>
-              <p class="text-xs text-slate-400 font-serif line-clamp-3 mt-2 leading-relaxed">
-                {{ r.resumen }}
-              </p>
+              <div class="mt-4 pt-3 border-t border-amber-900/30 flex items-center justify-between text-xs text-amber-400 font-mono">
+                <span>Abrir Crónica 3D</span>
+                <span>➔</span>
+              </div>
             </div>
-
-            <div class="mt-4 pt-3 border-t border-amber-900/30 flex items-center justify-between text-xs text-amber-400 font-mono">
-              <span>Abrir Crónica 3D</span>
-              <span>➔</span>
-            </div>
-          </div>
+          }
         </div>
       </section>
-    </main>
+    </div>
   `
 })
 export class InicioComponent {
-  private datosClover = inject(DatosCloverService);
-  private grimorioState = inject(GrimorioStateService);
-  private progresoService = inject(ProgresoJugadorService);
+  private readonly datosClover = inject(DatosCloverService);
+  private readonly grimorioState = inject(GrimorioStateService);
+  private readonly progresoService = inject(ProgresoJugadorService);
 
   readonly personajes = this.datosClover.personajes;
   readonly reinos = this.datosClover.reinos;
   readonly estrellasTotales = this.progresoService.estrellasTotales;
   readonly minijuegoHabilitado = FEATURE_FLAGS.minijuegoActivo;
 
-  readonly personajesDestacados = () => {
+  readonly personajesDestacados = computed(() => {
     return this.personajes().slice(0, 4);
-  };
+  });
 
-  abrirReino(reino: any) {
+  abrirReino(reino: Reino) {
     this.grimorioState.abrirReino(reino, 0);
   }
 
-  obtenerTipoEmblema(nombre: string): any {
+  obtenerTipoEmblema(nombre: string): TipoEmblema {
     if (nombre === 'Trébol') return 'reino-trebol';
     if (nombre === 'Pica') return 'reino-pica';
     if (nombre === 'Corazón') return 'reino-corazon';

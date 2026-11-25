@@ -6,7 +6,8 @@ export interface Escenario {
   subtitulo: string;
   descripcion: string;
   imagenUrl: string;
-  videoUrl?: string;
+  videoBaseUrl?: string;    // Ruta sin extensión
+  videoUrl?: string;        // Opcional para compatibilidad
   posterUrl?: string;
 }
 

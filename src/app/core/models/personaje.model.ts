@@ -27,7 +27,8 @@ export interface Hechizo {
   nombre: string;
   subtitulo: string;
   descripcion: string;
-  videoUrl: string;         // WebM (VP9) / MP4 (H.264) 4-8s
+  videoBaseUrl: string;     // Ruta sin extensión para soportar .webm y .mp4
+  videoUrl?: string;        // Opcional para retrocompatibilidad
   posterUrl: string;        // Miniatura estática visible durante giro 3D
   nivelPoder: number;       // 1 a 5
   juego?: StatsHechizoJuego;

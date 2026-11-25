@@ -16,7 +16,7 @@ export class GsapFlipService {
   }
 
   /**
-   * Captura el estado y bounding box del elemento origen (tarjeta de personaje)
+   * Captura el estado DOM y bounding box del elemento origen (tarjeta clicada)
    */
   capturarOrigen(elemento: HTMLElement) {
     if (!elemento) return;
@@ -24,7 +24,7 @@ export class GsapFlipService {
       this.lastCapturedState = Flip.getState(elemento);
       this.originRect = elemento.getBoundingClientRect();
     } catch (err) {
-      console.warn('Error capturando estado FLIP:', err);
+      console.warn('Aviso al capturar estado FLIP:', err);
     }
   }
 
@@ -33,7 +33,8 @@ export class GsapFlipService {
   }
 
   /**
-   * Ejecuta la animación de entrada desde el origen hacia el contenedor destino
+   * Anima de forma fluida el destino (contenedor del grimorio) desde la posición
+   * de la tarjeta capturada hacia el centro de la pantalla.
    */
   animarHaciaGrimorio(
     destino: HTMLElement,
@@ -57,10 +58,10 @@ export class GsapFlipService {
         {
           x: deltaX,
           y: deltaY,
-          scaleX: Math.max(0.2, scaleX),
-          scaleY: Math.max(0.2, scaleY),
-          opacity: 0.3,
-          rotateY: -35
+          scaleX: Math.max(0.15, scaleX),
+          scaleY: Math.max(0.15, scaleY),
+          opacity: 0.2,
+          rotateY: -25
         },
         {
           x: 0,
@@ -69,7 +70,7 @@ export class GsapFlipService {
           scaleY: 1,
           opacity: 1,
           rotateY: 0,
-          duration: 0.75,
+          duration: 0.7,
           ease: ease || 'power3.out',
           onComplete: () => {
             this.lastCapturedState = null;
@@ -79,21 +80,21 @@ export class GsapFlipService {
         }
       );
     } else {
-      // Entrada predeterminada con pop 3D y brillo
+      // Pop 3D suave si se ingresa por deep linking directo
       gsap.fromTo(
         destino,
         {
           scale: 0.7,
           opacity: 0,
-          y: 60,
-          rotateX: 20
+          y: 50,
+          rotateX: 15
         },
         {
           scale: 1,
           opacity: 1,
           y: 0,
           rotateX: 0,
-          duration: 0.65,
+          duration: 0.6,
           ease: ease || 'power3.out',
           onComplete: () => {
             onComplete?.();
