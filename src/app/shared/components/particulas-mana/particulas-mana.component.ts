@@ -64,6 +64,8 @@ export class ParticulasManaComponent implements OnInit {
   // Opciones ligeras de alto rendimiento (60 FPS fijos, 0 link checks, 0 eventos de hover)
   readonly particlesOptions = computed<ISourceOptions>(() => {
     const t = this.tema();
+    const esMovil = typeof window !== 'undefined' && window.innerWidth < 768;
+    const cantidadParticulas = esMovil ? 18 : 36;
 
     return {
       fpsLimit: 60,
@@ -75,7 +77,7 @@ export class ParticulasManaComponent implements OnInit {
       },
       particles: {
         number: {
-          value: 36 // Máximo 35–40 partículas para rendimiento óptimo
+          value: cantidadParticulas // 18 en móvil (<768px), 36 en escritorio para máximo rendimiento
         },
         color: {
           value: [t.colorPrimario, t.colorBrillo, '#ffffff']

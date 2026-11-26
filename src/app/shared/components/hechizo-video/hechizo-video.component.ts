@@ -7,6 +7,7 @@ import {
   inject,
   input,
   computed,
+  signal,
   effect
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -34,7 +35,8 @@ import { GrimorioStateService } from '../../../core/services/grimorio-state.serv
       <div class="absolute bottom-1.5 right-1.5 w-4 h-4 border-b-2 border-r-2 border-amber-400/80 z-20 pointer-events-none"></div>
 
       <!-- Video Element HTML5 con doble fuente (WebM VP9 + MP4 H.264) -->
-      @if (hasVideo()) {
+      <!-- Se renderiza ÚNICAMENTE si videoBaseUrl tiene contenido no vacío y no ha fallado la carga -->
+      @if (tieneVideo()) {
         <video
           #videoPlayer
           [poster]="posterUrl()"
@@ -49,16 +51,16 @@ import { GrimorioStateService } from '../../../core/services/grimorio-state.serv
           [class.opacity-100]="!estaAnimando() && videoCargadoOk"
         >
           @if (webmUrl()) {
-            <source [src]="webmUrl()" type="video/webm">
+            <source [src]="webmUrl()" type="video/webm" (error)="onWebmError()">
           }
           @if (mp4Url()) {
-            <source [src]="mp4Url()" type="video/mp4">
+            <source [src]="mp4Url()" type="video/mp4" (error)="onLastSourceError()">
           }
         </video>
       }
 
       <!-- Poster estático y visualizador mágico visible durante giro 3D (para asegurar 60 FPS continuos) o fallback -->
-      @if (estaAnimando() || !videoCargadoOk || !hasVideo()) {
+      @if (estaAnimando() || !videoCargadoOk || !tieneVideo()) {
         <div
           class="absolute inset-0 z-10 bg-cover bg-center transition-all duration-500 flex flex-col justify-end p-4"
           [style.backgroundImage]="'url(' + posterUrl() + ')'"
@@ -117,11 +119,12 @@ export class HechizoVideoComponent implements AfterViewInit, OnDestroy {
   readonly estaAnimando = this.grimorioState.estaAnimando;
 
   videoCargadoOk: boolean = false;
+  readonly errorCargaVideo = signal<boolean>(false);
   private animFrameId: number | null = null;
   private canvasTicks: number = 0;
 
   readonly videoBase = computed(() => {
-    return this.hechizo()?.videoBaseUrl || this.escenario()?.videoBaseUrl || '';
+    return (this.hechizo()?.videoBaseUrl || this.escenario()?.videoBaseUrl || '').trim();
   });
 
   readonly webmUrl = computed(() => {
@@ -132,11 +135,11 @@ export class HechizoVideoComponent implements AfterViewInit, OnDestroy {
   readonly mp4Url = computed(() => {
     const base = this.videoBase();
     if (base) return `${base}.mp4`;
-    return this.hechizo()?.videoUrl || this.escenario()?.videoUrl || '';
+    return (this.hechizo()?.videoUrl || this.escenario()?.videoUrl || '').trim();
   });
 
-  readonly hasVideo = computed(() => {
-    return !!(this.webmUrl() || this.mp4Url());
+  readonly tieneVideo = computed(() => {
+    return !!this.videoBase() && !this.errorCargaVideo();
   });
 
   readonly posterUrl = computed(() => {
@@ -153,6 +156,14 @@ export class HechizoVideoComponent implements AfterViewInit, OnDestroy {
   });
 
   constructor() {
+    // Al cambiar el hechizo o escenario activo, reiniciar el estado de error
+    effect(() => {
+      this.hechizo();
+      this.escenario();
+      this.errorCargaVideo.set(false);
+      this.videoCargadoOk = false;
+    });
+
     // Sincronización estricta por efecto:
     // Solo llama .play() cuando activo() es true y no hay giro 3D en progreso (estaAnimando() === false)
     // Cuando activo() pasa a false o se inicia una animación 3D, pausa y reinicia a currentTime = 0
@@ -162,7 +173,7 @@ export class HechizoVideoComponent implements AfterViewInit, OnDestroy {
       const video = this.videoPlayerRef?.nativeElement;
 
       if (video) {
-        if (isActivo && !isAnim && this.videoCargadoOk) {
+        if (isActivo && !isAnim && this.videoCargadoOk && this.tieneVideo()) {
           const playPromise = video.play();
           if (playPromise !== undefined) {
             playPromise.catch(() => {
@@ -199,10 +210,25 @@ export class HechizoVideoComponent implements AfterViewInit, OnDestroy {
     this.sincronizarReproduccion();
   }
 
+  onWebmError() {
+    // Si falla el WebM y no hay MP4, desmontar inmediatamente
+    if (!this.mp4Url()) {
+      this.onLastSourceError();
+    }
+  }
+
+  onLastSourceError() {
+    // Fallback seguro: si el último source falla, desmontar el elemento <video> inmediatamente
+    this.videoCargadoOk = false;
+    this.errorCargaVideo.set(true);
+    this.iniciarAnimacionCanvas();
+  }
+
   onVideoError() {
     // Fallback seguro: si el archivo de video local no existe en disco,
     // activa el canvas interactivo con el poster de fondo sin emitir errores no capturados
     this.videoCargadoOk = false;
+    this.errorCargaVideo.set(true);
     this.iniciarAnimacionCanvas();
   }
 
@@ -210,7 +236,7 @@ export class HechizoVideoComponent implements AfterViewInit, OnDestroy {
     const video = this.videoPlayerRef?.nativeElement;
     if (!video) return;
 
-    if (this.activo() && !this.estaAnimando() && this.videoCargadoOk) {
+    if (this.activo() && !this.estaAnimando() && this.videoCargadoOk && this.tieneVideo()) {
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {});

@@ -21,7 +21,7 @@
         "nombre": "Espada Danma: Tajo de Antimagia",
         "subtitulo": "Espada Asesina de Demonios",
         "descripcion": "Invoca la enorme espada desoxidadora que puede desviar la magia enemiga con su parte plana y cortar o anular cualquier hechizo con su filo. Puede proyectar tajos oscuros de antimagia que destruyen barreras mágicas al instante.",
-        "videoBaseUrl": "assets/videos/asta-danma",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 4,
         "juego": {
@@ -36,7 +36,7 @@
         "nombre": "Espada Shukuma: Asimilación de Maná",
         "subtitulo": "Espada Reductora de Demonios",
         "descripcion": "Espada ligera de corte ágil capaz de absorber la magia de los aliados para disparar ráfagas cargadas de atributos elementales, o canalizar directamente cortes veloces de antimagia pura a corta distancia.",
-        "videoBaseUrl": "assets/videos/asta-shukuma",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 4,
         "juego": {
@@ -51,7 +51,7 @@
         "nombre": "Espada Metsuma: Ruptura de Causalidad",
         "subtitulo": "Espada Destructora de Demonios",
         "descripcion": "Una hoja ceremonial con punta redondeada capaz de anular los efectos residuales de la magia y revertir la causalidad. Es capaz de purificar venenos, maldiciones ancestrales e incluso la reencarnación forzada.",
-        "videoBaseUrl": "assets/videos/asta-metsuma",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1514533450685-4493e01d1fdc?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 5,
         "juego": {
@@ -90,7 +90,7 @@
         "nombre": "Magia de Viento: Torre de Tormenta",
         "subtitulo": "Tornado Ciclónico Cortante",
         "descripcion": "Genera una columna vertiginosa de vientos huracanados que arrastra a múltiples enemigos hacia los cielos mientras incontables hojas de aire afiladas desintegran sus defensas.",
-        "videoBaseUrl": "assets/videos/yuno-torre",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 3,
         "juego": {
@@ -105,7 +105,7 @@
         "nombre": "Asimilación Espiritual: Spirit Storm",
         "subtitulo": "Tormenta Radiante del Espíritu",
         "descripcion": "Fusionando su maná en sincronía perfecta con Sylph, Yuno concentra un haz colosal de maná verde esmeralda que pulveriza cualquier oposición en una línea recta implacable.",
-        "videoBaseUrl": "assets/videos/yuno-storm",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 4,
         "juego": {
@@ -120,7 +120,7 @@
         "nombre": "Espíritu de Céfiro (Spirit of Zephyr)",
         "subtitulo": "Espada de Viento Condensado",
         "descripcion": "Yuno comprime el viento ambiente y los fragmentos residuales de maná flotantes en el campo de batalla para forjar una espada de alta vibración que desintegra barreras al contacto.",
-        "videoBaseUrl": "assets/videos/yuno-zephyr",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 5,
         "juego": {
@@ -159,7 +159,7 @@
         "nombre": "Nido del Dragón Acuático",
         "subtitulo": "Domo Defensivo Impenetrable",
         "descripcion": "Crea una esfera giratoria de agua de alta densidad que neutraliza y desvía cualquier ataque mágico enemigo que choque contra su superficie, resguardando a todos los aliados.",
-        "videoBaseUrl": "assets/videos/noelle-nido",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 3,
         "juego": {
@@ -174,7 +174,7 @@
         "nombre": "Rugido del Dragón del Mar",
         "subtitulo": "Vórtice Colosal Ofensivo",
         "descripcion": "Modela un dragón marino gigantesco compuesto de torrentes presurizados que brama y embiste a la velocidad de un proyectil, devorando y demoliendo defensas enemigas a su paso.",
-        "videoBaseUrl": "assets/videos/noelle-rugido",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1498084393753-b411b2d26b34?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 5,
         "juego": {
@@ -189,7 +189,7 @@
         "nombre": "Armadura de Valkiria",
         "subtitulo": "Manto de Combate Real",
         "descripcion": "Cubre su silueta con una armadura translúcida de agua pura que le permite flotar y deslizarse por el maná ambiental a velocidades extremas, atacando con una lanza de flujo continuo.",
-        "videoBaseUrl": "assets/videos/noelle-valkiria",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 5,
         "juego": {
@@ -228,7 +228,7 @@
         "nombre": "Corte Oscuro Enfundado (Avidya Slash)",
         "subtitulo": "Desenvaine Relámpago",
         "descripcion": "Concentra la magia de oscuridad en su katana enfundada y la desenvaina con precisión quirúrgica, disparando una densa cuchilla sombría que absorbe la luz y despedaza el objetivo.",
-        "videoBaseUrl": "assets/videos/yami-corte",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 4,
         "juego": {
@@ -243,7 +243,7 @@
         "nombre": "Agujero Negro (Black Hole)",
         "subtitulo": "Singularidad Gravitatoria",
         "descripcion": "Genera una pequeña esfera de oscuridad absoluta sobre su mano izquierda que ejerce una atracción gravitatoria irresistible, succionando y devorando cualquier hechizo mágico cercano.",
-        "videoBaseUrl": "assets/videos/yami-agujero",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 4,
         "juego": {
@@ -258,7 +258,7 @@
         "nombre": "Corte Dimensional Desatado",
         "subtitulo": "Dark Cloaked Dimension Slash",
         "descripcion": "Canaliza cantidades ingentes de maná oscuro en la hoja de su katana hasta rasgar el propio tejido espacial y dimensional, cortando de forma instantánea objetos a kilómetros de distancia.",
-        "videoBaseUrl": "assets/videos/yami-dimension",
+        "videoBaseUrl": "",
         "posterUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=80",
         "nivelPoder": 5,
         "juego": {

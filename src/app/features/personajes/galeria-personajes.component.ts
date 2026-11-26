@@ -27,10 +27,10 @@ import { EmblemaSvgComponent } from '../../shared/components/emblema-svg/emblema
       </header>
 
       <!-- Barra de Filtros y Búsqueda conectada a Signals (sin backdrop-blur para alto rendimiento) -->
-      <section class="mb-10 p-5 rounded-2xl bg-[#0c0908]/90 border border-amber-900/40 shadow-xl space-y-4" aria-label="Filtros de Personajes">
-        <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+      <section class="mb-10 p-4 sm:p-5 rounded-2xl bg-[#0c0908]/90 border border-amber-900/40 shadow-xl space-y-4" aria-label="Filtros de Personajes">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-between">
           <!-- Búsqueda en Vivo -->
-          <div class="relative w-full md:w-96">
+          <div class="relative w-full sm:flex-1 sm:max-w-md">
             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
             <input
               type="text"
@@ -42,7 +42,7 @@ import { EmblemaSvgComponent } from '../../shared/components/emblema-svg/emblema
           </div>
 
           <!-- Selector de Escuadrón -->
-          <div class="flex items-center gap-2 w-full md:w-auto">
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
             <label for="filtro-escuadron-select" class="text-xs font-mono uppercase tracking-wider text-amber-400 whitespace-nowrap">
               Escuadrón:
             </label>
@@ -50,7 +50,7 @@ import { EmblemaSvgComponent } from '../../shared/components/emblema-svg/emblema
               id="filtro-escuadron-select"
               [ngModel]="filtroEscuadron()"
               (ngModelChange)="filtroEscuadron.set($event)"
-              class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 text-sm text-slate-200 focus:outline-none focus:border-rose-500 transition-all font-sans"
+              class="px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 text-sm text-slate-200 focus:outline-none focus:border-rose-500 transition-all font-sans flex-1 sm:flex-initial"
             >
               <option value="todos">Todos los Escuadrones</option>
               @for (esc of escuadrones(); track esc) {
@@ -60,14 +60,14 @@ import { EmblemaSvgComponent } from '../../shared/components/emblema-svg/emblema
           </div>
         </div>
 
-        <!-- Filtros Rápidos por Reino -->
-        <div class="flex flex-wrap gap-2 items-center pt-2 border-t border-slate-800/80">
-          <span class="text-xs font-mono uppercase tracking-wider text-slate-400 mr-2">Reino:</span>
+        <!-- Filtros Rápidos por Reino (scroll horizontal en pantallas pequeñas) -->
+        <div class="flex items-center gap-2 pt-2 border-t border-slate-800/80 overflow-x-auto pb-1.5 scrollbar-none whitespace-nowrap">
+          <span class="text-xs font-mono uppercase tracking-wider text-slate-400 mr-1 shrink-0">Reino:</span>
           @for (r of ['todos', 'Trébol', 'Pica', 'Corazón', 'Diamante']; track r) {
             <button
               type="button"
               (click)="filtroReino.set(r)"
-              class="px-3 py-1 rounded-lg text-xs font-fantasy tracking-wider uppercase transition-all duration-200"
+              class="px-3 py-1.5 rounded-lg text-xs font-fantasy tracking-wider uppercase transition-all duration-200 shrink-0 cursor-pointer"
               [class.bg-rose-600]="filtroReino() === r"
               [class.text-white]="filtroReino() === r"
               [class.shadow-md]="filtroReino() === r"
@@ -80,7 +80,7 @@ import { EmblemaSvgComponent } from '../../shared/components/emblema-svg/emblema
             </button>
           }
 
-          <span class="ml-auto text-xs font-mono text-amber-400/80">
+          <span class="ml-auto text-xs font-mono text-amber-400/80 pl-2 shrink-0">
             {{ personajes().length }} Resultados
           </span>
         </div>
@@ -89,7 +89,7 @@ import { EmblemaSvgComponent } from '../../shared/components/emblema-svg/emblema
       <!-- Grilla de Tarjetas -->
       <section aria-label="Resultados de Personajes">
         @if (personajes().length > 0) {
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
             @for (p of personajes(); track p.id) {
               <app-tarjeta-personaje [personaje]="p"></app-tarjeta-personaje>
             }

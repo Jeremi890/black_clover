@@ -29,7 +29,7 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
       </header>
 
       <!-- Grilla interactiva de los 4 Reinos -->
-      <section aria-label="Cuatro Grandes Reinos" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <section aria-label="Cuatro Grandes Reinos" class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         @for (reino of reinos(); track reino.id) {
           <article
             appAuraHover
@@ -37,7 +37,7 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
             [elevacionY]="-6"
             (mouseenter)="previsualizarAtmosfera(reino)"
             (mouseleave)="restaurarAtmosfera()"
-            class="group relative rounded-3xl overflow-hidden border border-amber-900/40 bg-gradient-to-b from-[#1c1613] to-[#0c0907] p-8 flex flex-col justify-between shadow-2xl transition-all duration-300"
+            class="group relative rounded-3xl overflow-hidden border border-amber-900/40 bg-gradient-to-b from-[#1c1613] to-[#0c0907] p-5 sm:p-8 flex flex-col justify-between shadow-2xl transition-all duration-300"
             [style.borderColor]="reino.perfilVisual.colorPrimario + '55'"
           >
             <!-- Resplandor dinámico en hover y atmósfera activa -->
@@ -48,33 +48,33 @@ import { AuraHoverDirective } from '../../shared/directives/aura-hover.directive
 
             <div>
               <!-- Emblema y Título -->
-              <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center gap-4">
-                  <div class="p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 shadow-inner group-hover:scale-110 transition-transform">
+              <div class="flex items-center justify-between mb-5 sm:mb-6 gap-2">
+                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                  <div class="p-2.5 sm:p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 shadow-inner group-hover:scale-110 transition-transform shrink-0">
                     <app-emblema-svg
                       [tipo]="obtenerTipoEmblema(reino.nombre)"
-                      [size]="46"
+                      [size]="38"
                       [color]="reino.perfilVisual.colorPrimario"
                       [glow]="true"
                     ></app-emblema-svg>
                   </div>
-                  <div>
-                    <span class="text-xs uppercase font-mono tracking-widest text-amber-400">
+                  <div class="min-w-0">
+                    <span class="text-[10px] sm:text-xs uppercase font-mono tracking-widest text-amber-400 block truncate">
                       Soberanía Mágica
                     </span>
-                    <h2 class="text-2xl font-black text-amber-100 font-fantasy tracking-wide">
+                    <h2 class="text-lg sm:text-2xl font-black text-amber-100 font-fantasy tracking-wide truncate">
                       {{ reino.tituloCompleto }}
                     </h2>
                   </div>
                 </div>
 
-                <span class="text-xs font-mono font-bold text-amber-300 border border-amber-700/50 px-2.5 py-1 rounded-full bg-black/50">
+                <span class="text-[11px] sm:text-xs font-mono font-bold text-amber-300 border border-amber-700/50 px-2 sm:px-2.5 py-1 rounded-full bg-black/50 shrink-0">
                   {{ reino.escenarios.length || 0 }} Regiones
                 </span>
               </div>
 
               <!-- Resumen histórico -->
-              <p class="text-sm text-slate-300 font-serif leading-relaxed line-clamp-3 mb-6">
+              <p class="text-xs sm:text-sm text-slate-300 font-serif leading-relaxed line-clamp-3 mb-5 sm:mb-6">
                 {{ reino.resumen }}
               </p>
 

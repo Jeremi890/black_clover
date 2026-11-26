@@ -11,8 +11,14 @@ export class AuraHoverDirective implements OnDestroy {
   @Input() escalaHover: number = 1.03;
   @Input() elevacionY: number = -6;
 
+  private soportaHover(): boolean {
+    if (typeof window === 'undefined' || !window.matchMedia) return true;
+    return window.matchMedia('(hover: hover)').matches;
+  }
+
   @HostListener('mouseenter')
   onMouseEnter() {
+    if (!this.soportaHover()) return;
     // Anima únicamente propiedades GPU (transform: scale, y) con overwrite: 'auto'
     // sin alterar box-shadow ni filter: blur por GSAP
     gsap.to(this.el.nativeElement, {
@@ -26,6 +32,7 @@ export class AuraHoverDirective implements OnDestroy {
 
   @HostListener('mouseleave')
   onMouseLeave() {
+    if (!this.soportaHover()) return;
     gsap.to(this.el.nativeElement, {
       scale: 1,
       y: 0,

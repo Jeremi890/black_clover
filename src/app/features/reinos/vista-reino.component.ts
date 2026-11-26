@@ -32,12 +32,12 @@ import { EmblemaSvgComponent, TipoEmblema } from '../../shared/components/emblem
             [style.background]="'radial-gradient(circle at 80% 50%, ' + r.perfilVisual.colorPrimario + ' 0%, transparent 60%)'"
           ></div>
 
-          <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div class="flex items-center gap-6">
-              <div class="p-4 rounded-3xl bg-black/70 border border-amber-500/40 shadow-2xl">
+          <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start justify-between gap-6 sm:gap-8">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 text-center sm:text-left">
+              <div class="p-3.5 sm:p-4 rounded-3xl bg-black/70 border border-amber-500/40 shadow-2xl shrink-0">
                 <app-emblema-svg
                   [tipo]="obtenerTipoEmblema(r.nombre)"
-                  [size]="64"
+                  [size]="52"
                   [color]="r.perfilVisual.colorPrimario"
                   [glow]="true"
                 ></app-emblema-svg>
@@ -47,7 +47,7 @@ import { EmblemaSvgComponent, TipoEmblema } from '../../shared/components/emblem
                 <span class="text-xs uppercase font-mono tracking-widest text-amber-400">
                   Soberanía Territorial
                 </span>
-                <h1 id="vista-reino-title" class="text-3xl sm:text-5xl font-black font-fantasy text-amber-100 tracking-wide mt-1">
+                <h1 id="vista-reino-title" class="text-2xl sm:text-4xl lg:text-5xl font-black font-fantasy text-amber-100 tracking-wide mt-1">
                   {{ r.tituloCompleto }}
                 </h1>
                 <p class="text-xs sm:text-sm font-serif text-slate-300 mt-2 max-w-2xl leading-relaxed">
@@ -60,7 +60,7 @@ import { EmblemaSvgComponent, TipoEmblema } from '../../shared/components/emblem
             <button
               type="button"
               (click)="abrirCronica3d(r)"
-              class="flex items-center gap-3 px-6 py-3.5 rounded-2xl text-sm font-bold font-fantasy uppercase tracking-wider text-white shadow-2xl hover:scale-105 active:scale-95 transition-all whitespace-nowrap"
+              class="w-full sm:w-auto flex items-center justify-center gap-3 px-6 py-3.5 rounded-2xl text-sm font-bold font-fantasy uppercase tracking-wider text-white shadow-2xl hover:scale-105 active:scale-95 transition-all whitespace-nowrap cursor-pointer shrink-0"
               [style.backgroundColor]="r.perfilVisual.colorPrimario"
             >
               <span>Abrir Crónica 3D</span>

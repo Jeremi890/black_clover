@@ -11,12 +11,12 @@ import { EmblemaSvgComponent, TipoEmblema } from '../emblema-svg/emblema-svg.com
   imports: [CommonModule, HechizoVideoComponent, EmblemaSvgComponent],
   template: `
     <article
-      class="w-full h-full flex flex-col md:flex-row relative select-none overflow-hidden rounded-2xl bg-[#140f0c] shadow-2xl"
+      class="w-full h-full flex flex-col lg:flex-row relative select-none overflow-y-auto lg:overflow-hidden rounded-2xl bg-[#140f0c] shadow-2xl"
       aria-label="Página del Hechizo"
     >
       <!-- ================= PÁGINA IZQUIERDA: LORE / STATS / EMBLEMA ================= -->
       <section
-        class="w-full md:w-1/2 h-full p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-amber-900/40 relative overflow-y-auto bg-gradient-to-br from-[#1c1613] via-[#140f0c] to-[#0d0a08]"
+        class="w-full lg:w-1/2 p-5 sm:p-6 lg:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-amber-900/40 relative overflow-y-visible lg:overflow-y-auto bg-gradient-to-br from-[#1c1613] via-[#140f0c] to-[#0d0a08] shrink-0 lg:shrink lg:h-full"
         aria-label="Información y Lore"
       >
         <!-- Textura tenue de pergamino místico -->
@@ -28,7 +28,7 @@ import { EmblemaSvgComponent, TipoEmblema } from '../emblema-svg/emblema-svg.com
             <div class="flex items-center gap-3">
               <app-emblema-svg
                 [tipo]="tipoEmblema()"
-                [size]="34"
+                [size]="32"
                 [glow]="true"
               ></app-emblema-svg>
               <div>
@@ -138,7 +138,7 @@ import { EmblemaSvgComponent, TipoEmblema } from '../emblema-svg/emblema-svg.com
 
       <!-- ================= PÁGINA DERECHA: REPRODUCTOR MÁGICO / CLIP ================= -->
       <section
-        class="w-full md:w-1/2 h-full p-6 md:p-8 flex flex-col justify-between relative bg-gradient-to-bl from-[#181310] via-[#100d0a] to-[#090705]"
+        class="w-full lg:w-1/2 p-5 sm:p-6 lg:p-8 flex flex-col justify-between relative bg-gradient-to-bl from-[#181310] via-[#100d0a] to-[#090705] shrink-0 lg:shrink lg:h-full"
         aria-label="Demostración Mágica"
       >
         <!-- Textura mágica de fondo -->
@@ -154,8 +154,8 @@ import { EmblemaSvgComponent, TipoEmblema } from '../emblema-svg/emblema-svg.com
             <span class="text-[10px] tracking-wider uppercase text-slate-400">60 FPS • Sincronizado</span>
           </div>
 
-          <!-- Reproductor de Hechizo con Marco Ornamentado -->
-          <div class="w-full flex-1 max-h-[360px] my-auto">
+          <!-- Reproductor de Hechizo con Marco Ornamentado (aspect-video) -->
+          <div class="w-full aspect-video max-h-[260px] sm:max-h-[320px] lg:max-h-[360px] my-auto">
             <app-hechizo-video
               [hechizo]="hechizo()"
               [escenario]="escenario()"

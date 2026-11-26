@@ -27,7 +27,7 @@ import { Reino } from '../../core/models/reino.model';
         <!-- Título Principal Épico -->
         <h1
           id="hero-title"
-          class="text-5xl sm:text-7xl lg:text-8xl font-black font-fantasy tracking-wider uppercase leading-none drop-shadow-2xl text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-200 to-amber-500/90"
+          class="text-4xl sm:text-6xl lg:text-7xl font-black font-fantasy tracking-wider uppercase leading-none drop-shadow-2xl text-transparent bg-clip-text bg-gradient-to-b from-amber-100 via-amber-200 to-amber-500/90"
         >
           Grimorio Físico 3D
         </h1>
@@ -42,17 +42,17 @@ import { Reino } from '../../core/models/reino.model';
         </div>
 
         <!-- Accesos Directos Principales -->
-        <div class="mt-8 flex flex-wrap gap-4 justify-center items-center">
+        <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto">
           <a
             routerLink="/personajes"
-            class="px-8 py-4 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-fantasy text-sm font-bold tracking-widest uppercase shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer"
+            class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white font-fantasy text-sm font-bold tracking-widest uppercase shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
           >
             Abrir Galería de Magos
           </a>
 
           <a
             routerLink="/reinos"
-            class="px-8 py-4 rounded-2xl bg-black/85 hover:bg-black/95 border border-amber-500/50 hover:border-amber-400 text-amber-300 font-fantasy text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 cursor-pointer"
+            class="w-full sm:w-auto text-center px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-black/85 hover:bg-black/95 border border-amber-500/50 hover:border-amber-400 text-amber-300 font-fantasy text-sm font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
           >
             Mapa de los 4 Reinos
           </a>
@@ -97,7 +97,7 @@ import { Reino } from '../../core/models/reino.model';
           </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           @for (p of personajesDestacados(); track p.id) {
             <app-tarjeta-personaje [personaje]="p"></app-tarjeta-personaje>
           }
@@ -111,7 +111,7 @@ import { Reino } from '../../core/models/reino.model';
             <span class="text-xs font-mono uppercase tracking-widest text-amber-500 font-bold">
               Atlas y Crónicas
             </span>
-            <h2 id="reinos-preview-title" class="text-3xl font-black font-fantasy text-amber-100 tracking-wide mt-1">
+            <h2 id="reinos-preview-title" class="text-2xl sm:text-3xl font-black font-fantasy text-amber-100 tracking-wide mt-1">
               Las Cuatro Grandes Potencias
             </h2>
           </div>
@@ -124,7 +124,7 @@ import { Reino } from '../../core/models/reino.model';
           </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           @for (r of reinos(); track r.id) {
             <div
               (click)="abrirReino(r)"
