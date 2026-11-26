@@ -1,38 +1,48 @@
-import { Directive, ElementRef, HostListener, Input, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, OnDestroy, inject } from '@angular/core';
 import { gsap } from 'gsap';
 
 @Directive({
   selector: '[appAuraHover]',
   standalone: true
 })
-export class AuraHoverDirective {
-  private el = inject(ElementRef);
+export class AuraHoverDirective implements OnDestroy {
+  private readonly el = inject(ElementRef);
 
-  @Input() escalaHover: number = 1.04;
+  @Input() escalaHover: number = 1.03;
   @Input() elevacionY: number = -6;
-  @Input() intensificarBrillo: boolean = true;
+
+  private soportaHover(): boolean {
+    if (typeof window === 'undefined' || !window.matchMedia) return true;
+    return window.matchMedia('(hover: hover)').matches;
+  }
 
   @HostListener('mouseenter')
   onMouseEnter() {
+    if (!this.soportaHover()) return;
+    // Anima únicamente propiedades GPU (transform: scale, y) con overwrite: 'auto'
+    // sin alterar box-shadow ni filter: blur por GSAP
     gsap.to(this.el.nativeElement, {
       scale: this.escalaHover,
       y: this.elevacionY,
-      duration: 0.35,
+      duration: 0.3,
       ease: 'power2.out',
-      boxShadow: this.intensificarBrillo
-        ? '0 12px 30px -5px var(--aura-glow, rgba(225, 29, 72, 0.45)), 0 0 15px 0 var(--border-magic, rgba(244, 63, 94, 0.3))'
-        : '0 10px 20px -5px rgba(0, 0, 0, 0.5)'
+      overwrite: 'auto'
     });
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
+    if (!this.soportaHover()) return;
     gsap.to(this.el.nativeElement, {
       scale: 1,
       y: 0,
-      duration: 0.4,
-      ease: 'power3.out',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3)'
+      duration: 0.35,
+      ease: 'power2.out',
+      overwrite: 'auto'
     });
+  }
+
+  ngOnDestroy() {
+    gsap.killTweensOf(this.el.nativeElement);
   }
 }

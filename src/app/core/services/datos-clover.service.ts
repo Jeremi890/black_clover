@@ -11,7 +11,7 @@ import { catchError, of } from 'rxjs';
 export class DatosCloverService {
   private http = inject(HttpClient);
 
-  // Carga reactiva de JSONs locales
+  // Carga reactiva de JSONs locales vía toSignal (cero BehaviorSubject)
   readonly personajes = toSignal(
     this.http.get<Personaje[]>('data/personajes.json').pipe(
       catchError(err => {
@@ -32,12 +32,12 @@ export class DatosCloverService {
     { initialValue: [] as Reino[] }
   );
 
-  // Filtros reactivos con Signals
+  // Signals reactivos para filtrado en memoria
   readonly filtroReino = signal<string>('todos');
   readonly filtroEscuadron = signal<string>('todos');
   readonly busqueda = signal<string>('');
 
-  // Computed para filtrado instantáneo
+  // Computed reactivo para personajes filtrados
   readonly personajesFiltrados = computed(() => {
     const list = this.personajes();
     const reino = this.filtroReino();
@@ -58,7 +58,7 @@ export class DatosCloverService {
     });
   });
 
-  // Lista única de escuadrones para selector
+  // Lista única de escuadrones presentes en los datos
   readonly escuadronesDisponibles = computed(() => {
     const esc = new Set<string>();
     for (const p of this.personajes()) {

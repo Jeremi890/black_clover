@@ -1,13 +1,14 @@
 import {
   Component,
-  Input,
   ElementRef,
   ViewChild,
-  OnChanges,
-  SimpleChanges,
   AfterViewInit,
   OnDestroy,
-  inject
+  inject,
+  input,
+  computed,
+  signal,
+  effect
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Hechizo } from '../../../core/models/personaje.model';
@@ -21,101 +22,174 @@ import { GrimorioStateService } from '../../../core/services/grimorio-state.serv
   template: `
     <div class="relative w-full h-full rounded-xl overflow-hidden bg-black/80 border border-slate-700/60 shadow-2xl flex items-center justify-center group">
       <!-- Marco ornamentado mágico exterior -->
-      <div class="absolute inset-0 pointer-events-none z-20 border-2 rounded-xl transition-all duration-700"
-           [style.borderColor]="'var(--color-primario, #e11d48)'"
-           style="box-shadow: inset 0 0 25px rgba(0,0,0,0.85), 0 0 15px -3px var(--border-magic, rgba(244,63,94,0.3));">
-      </div>
+      <div
+        class="absolute inset-0 pointer-events-none z-20 border-2 rounded-xl transition-all duration-700"
+        [style.borderColor]="'var(--color-primario, #e11d48)'"
+        style="box-shadow: inset 0 0 25px rgba(0,0,0,0.85), 0 0 15px -3px var(--border-magic, rgba(244,63,94,0.3));"
+      ></div>
 
       <!-- Esquinas ornamentadas estilo grimorio -->
-      <div class="absolute top-1 left-1 w-4 h-4 border-t-2 border-l-2 border-amber-400/80 z-20 pointer-events-none"></div>
-      <div class="absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 border-amber-400/80 z-20 pointer-events-none"></div>
-      <div class="absolute bottom-1 left-1 w-4 h-4 border-b-2 border-l-2 border-amber-400/80 z-20 pointer-events-none"></div>
-      <div class="absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 border-amber-400/80 z-20 pointer-events-none"></div>
+      <div class="absolute top-1.5 left-1.5 w-4 h-4 border-t-2 border-l-2 border-amber-400/80 z-20 pointer-events-none"></div>
+      <div class="absolute top-1.5 right-1.5 w-4 h-4 border-t-2 border-r-2 border-amber-400/80 z-20 pointer-events-none"></div>
+      <div class="absolute bottom-1.5 left-1.5 w-4 h-4 border-b-2 border-l-2 border-amber-400/80 z-20 pointer-events-none"></div>
+      <div class="absolute bottom-1.5 right-1.5 w-4 h-4 border-b-2 border-r-2 border-amber-400/80 z-20 pointer-events-none"></div>
 
-      <!-- Video Element -->
-      <video
-        #videoPlayer
-        *ngIf="videoSrc"
-        [src]="videoSrc"
-        [poster]="posterSrc"
-        loop
-        muted
-        playsinline
-        preload="metadata"
-        (loadeddata)="onVideoLoaded()"
-        (error)="onVideoError()"
-        class="w-full h-full object-cover relative z-10 transition-opacity duration-300"
-        [class.opacity-0]="estaAnimando || !videoCargadoOk"
-        [class.opacity-100]="!estaAnimando && videoCargadoOk"
-      ></video>
+      <!-- Video Element HTML5 con doble fuente (WebM VP9 + MP4 H.264) -->
+      <!-- Se renderiza ÚNICAMENTE si videoBaseUrl tiene contenido no vacío y no ha fallado la carga -->
+      @if (tieneVideo()) {
+        <video
+          #videoPlayer
+          [poster]="posterUrl()"
+          loop
+          muted
+          playsinline
+          preload="metadata"
+          (loadeddata)="onVideoLoaded()"
+          (error)="onVideoError()"
+          class="w-full h-full object-cover relative z-10 transition-opacity duration-300"
+          [class.opacity-0]="estaAnimando() || !videoCargadoOk"
+          [class.opacity-100]="!estaAnimando() && videoCargadoOk"
+        >
+          @if (webmUrl()) {
+            <source [src]="webmUrl()" type="video/webm" (error)="onWebmError()">
+          }
+          @if (mp4Url()) {
+            <source [src]="mp4Url()" type="video/mp4" (error)="onLastSourceError()">
+          }
+        </video>
+      }
 
-      <!-- Miniatura / Poster estática visible durante giro 3D (para garantizar 60 FPS fijos) -->
-      <div
-        *ngIf="estaAnimando || !videoCargadoOk"
-        class="absolute inset-0 z-10 bg-cover bg-center transition-all duration-500 flex flex-col justify-end p-4"
-        [style.backgroundImage]="'url(' + posterSrc + ')'"
-      >
-        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+      <!-- Poster estático y visualizador mágico visible durante giro 3D (para asegurar 60 FPS continuos) o fallback -->
+      @if (estaAnimando() || !videoCargadoOk || !tieneVideo()) {
+        <div
+          class="absolute inset-0 z-10 bg-cover bg-center transition-all duration-500 flex flex-col justify-end p-4"
+          [style.backgroundImage]="'url(' + posterUrl() + ')'"
+        >
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-        <!-- Canvas interactivo con animación mágica procedural si no hay archivo de video local -->
-        <canvas
-          #magicCanvas
-          *ngIf="!videoCargadoOk"
-          class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-80"
-        ></canvas>
+          <!-- Canvas interactivo con animación mágica procedural si el video no existe localmente -->
+          @if (!videoCargadoOk) {
+            <canvas
+              #magicCanvas
+              class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none opacity-80"
+            ></canvas>
+          }
 
-        <div class="relative z-10 flex items-center justify-between text-xs text-amber-300/90 font-mono">
-          <span class="flex items-center gap-1.5 uppercase tracking-wider font-semibold">
-            <span class="w-2 h-2 rounded-full animate-ping" [style.backgroundColor]="'var(--color-primario, #e11d48)'"></span>
-            {{ hechizo?.subtitulo || escenario?.subtitulo || 'Maná Concentrado' }}
-          </span>
-          <span class="bg-black/60 px-2 py-0.5 rounded border border-amber-400/30">
-            {{ estaAnimando ? 'Sincronizando 3D...' : 'Visualizador Mágico' }}
-          </span>
+          <div class="relative z-10 flex items-center justify-between text-xs text-amber-300/90 font-mono">
+            <span class="flex items-center gap-1.5 uppercase tracking-wider font-semibold">
+              <span class="w-2 h-2 rounded-full animate-ping" [style.backgroundColor]="'var(--color-primario, #e11d48)'"></span>
+              {{ subtitulo() }}
+            </span>
+            <span class="bg-black/60 px-2 py-0.5 rounded border border-amber-400/30 text-[10px]">
+              {{ estaAnimando() ? 'Sincronizando 3D...' : (videoCargadoOk ? 'Listo' : 'Aura de Hechizo') }}
+            </span>
+          </div>
         </div>
-      </div>
+      }
 
-      <!-- Badge de poder / Nivel de hechizo -->
-      <div *ngIf="hechizo" class="absolute top-3 right-3 z-30 flex items-center gap-1 bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-amber-500/40 text-amber-400 font-bold text-xs tracking-wider shadow-lg">
-        <span>PODER</span>
-        <div class="flex gap-0.5">
-          <span
-            *ngFor="let s of [1,2,3,4,5]"
-            class="text-[10px]"
-            [class.text-amber-400]="s <= hechizo.nivelPoder"
-            [class.text-slate-600]="s > hechizo.nivelPoder"
-          >★</span>
+      <!-- Badge de nivel de poder (1 a 5) -->
+      @if (hechizo(); as h) {
+        <div class="absolute top-3 right-3 z-30 flex items-center gap-1 bg-black/90 px-2.5 py-1 rounded-full border border-amber-500/40 text-amber-400 font-bold text-xs tracking-wider shadow-lg">
+          <span class="text-[10px] font-mono">PODER</span>
+          <div class="flex gap-0.5">
+            @for (s of [1, 2, 3, 4, 5]; track s) {
+              <span
+                class="text-[11px]"
+                [class.text-amber-400]="s <= h.nivelPoder"
+                [class.text-slate-600]="s > h.nivelPoder"
+              >★</span>
+            }
+          </div>
         </div>
-      </div>
+      }
     </div>
   `
 })
-export class HechizoVideoComponent implements OnChanges, AfterViewInit, OnDestroy {
-  private grimorioState = inject(GrimorioStateService);
+export class HechizoVideoComponent implements AfterViewInit, OnDestroy {
+  private readonly grimorioState = inject(GrimorioStateService);
 
-  @Input() hechizo?: Hechizo;
-  @Input() escenario?: Escenario;
-  @Input() activa: boolean = false;
-  @Input() estaAnimando: boolean = false;
+  // Inputs con la nueva convención Angular Signals input<T>()
+  readonly hechizo = input<Hechizo | undefined>(undefined);
+  readonly escenario = input<Escenario | undefined>(undefined);
+  readonly activo = input<boolean>(false);
 
   @ViewChild('videoPlayer') videoPlayerRef?: ElementRef<HTMLVideoElement>;
   @ViewChild('magicCanvas') canvasRef?: ElementRef<HTMLCanvasElement>;
 
+  readonly estaAnimando = this.grimorioState.estaAnimando;
+
   videoCargadoOk: boolean = false;
+  readonly errorCargaVideo = signal<boolean>(false);
   private animFrameId: number | null = null;
   private canvasTicks: number = 0;
 
-  get videoSrc(): string {
-    return this.hechizo?.videoUrl || this.escenario?.videoUrl || '';
-  }
+  readonly videoBase = computed(() => {
+    return (this.hechizo()?.videoBaseUrl || this.escenario()?.videoBaseUrl || '').trim();
+  });
 
-  get posterSrc(): string {
+  readonly webmUrl = computed(() => {
+    const base = this.videoBase();
+    return base ? `${base}.webm` : '';
+  });
+
+  readonly mp4Url = computed(() => {
+    const base = this.videoBase();
+    if (base) return `${base}.mp4`;
+    return (this.hechizo()?.videoUrl || this.escenario()?.videoUrl || '').trim();
+  });
+
+  readonly tieneVideo = computed(() => {
+    return !!this.videoBase() && !this.errorCargaVideo();
+  });
+
+  readonly posterUrl = computed(() => {
     return (
-      this.hechizo?.posterUrl ||
-      this.escenario?.posterUrl ||
-      this.escenario?.imagenUrl ||
+      this.hechizo()?.posterUrl ||
+      this.escenario()?.posterUrl ||
+      this.escenario()?.imagenUrl ||
       'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&auto=format&fit=crop&q=80'
     );
+  });
+
+  readonly subtitulo = computed(() => {
+    return this.hechizo()?.subtitulo || this.escenario()?.subtitulo || 'Maná Concentrado';
+  });
+
+  constructor() {
+    // Al cambiar el hechizo o escenario activo, reiniciar el estado de error
+    effect(() => {
+      this.hechizo();
+      this.escenario();
+      this.errorCargaVideo.set(false);
+      this.videoCargadoOk = false;
+    });
+
+    // Sincronización estricta por efecto:
+    // Solo llama .play() cuando activo() es true y no hay giro 3D en progreso (estaAnimando() === false)
+    // Cuando activo() pasa a false o se inicia una animación 3D, pausa y reinicia a currentTime = 0
+    effect(() => {
+      const isActivo = this.activo();
+      const isAnim = this.estaAnimando();
+      const video = this.videoPlayerRef?.nativeElement;
+
+      if (video) {
+        if (isActivo && !isAnim && this.videoCargadoOk && this.tieneVideo()) {
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              // Manejo seguro ante políticas de autoplay o error de decodificación
+            });
+          }
+        } else {
+          try {
+            video.pause();
+            video.currentTime = 0;
+          } catch {
+            // Silencioso
+          }
+        }
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -123,16 +197,11 @@ export class HechizoVideoComponent implements OnChanges, AfterViewInit, OnDestro
     this.iniciarAnimacionCanvas();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['activa'] || changes['estaAnimando']) {
-      this.sincronizarReproduccion();
-    }
-  }
-
   ngOnDestroy() {
     this.detenerVideo();
     if (this.animFrameId) {
       cancelAnimationFrame(this.animFrameId);
+      this.animFrameId = null;
     }
   }
 
@@ -141,27 +210,36 @@ export class HechizoVideoComponent implements OnChanges, AfterViewInit, OnDestro
     this.sincronizarReproduccion();
   }
 
-  onVideoError() {
-    // Si el archivo de video local no existe, cae graciosamente al canvas interactivo
+  onWebmError() {
+    // Si falla el WebM y no hay MP4, desmontar inmediatamente
+    if (!this.mp4Url()) {
+      this.onLastSourceError();
+    }
+  }
+
+  onLastSourceError() {
+    // Fallback seguro: si el último source falla, desmontar el elemento <video> inmediatamente
     this.videoCargadoOk = false;
+    this.errorCargaVideo.set(true);
     this.iniciarAnimacionCanvas();
   }
 
-  /**
-   * REGLA CRÍTICA DE RENDIMIENTO:
-   * Solo llamar .play() si la página está activa y el giro 3D ya completó (estaAnimando = false).
-   * Si la página no está activa o está en pleno giro, pausar y resetear currentTime a 0.
-   */
+  onVideoError() {
+    // Fallback seguro: si el archivo de video local no existe en disco,
+    // activa el canvas interactivo con el poster de fondo sin emitir errores no capturados
+    this.videoCargadoOk = false;
+    this.errorCargaVideo.set(true);
+    this.iniciarAnimacionCanvas();
+  }
+
   private sincronizarReproduccion() {
     const video = this.videoPlayerRef?.nativeElement;
     if (!video) return;
 
-    if (this.activa && !this.estaAnimando && this.videoCargadoOk) {
+    if (this.activo() && !this.estaAnimando() && this.videoCargadoOk && this.tieneVideo()) {
       const playPromise = video.play();
       if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // Fallback silencioso por restricciones de autoplay
-        });
+        playPromise.catch(() => {});
       }
     } else {
       this.detenerVideo();
@@ -174,15 +252,15 @@ export class HechizoVideoComponent implements OnChanges, AfterViewInit, OnDestro
       try {
         video.pause();
         video.currentTime = 0;
-      } catch (e) {
-        // Ignorar excepciones al pausar
+      } catch {
+        // Silencioso
       }
     }
   }
 
   /**
    * Generador de Efectos Mágicos Procedurales en Canvas 2D
-   * Crea ondas de maná, tajos oscuros y auras de ataque a 60 FPS
+   * Crea círculos rúnicos de invocación y cortes de energía mágica a 60 FPS
    */
   private iniciarAnimacionCanvas() {
     if (typeof window === 'undefined') return;
@@ -205,7 +283,6 @@ export class HechizoVideoComponent implements OnChanges, AfterViewInit, OnDestro
       ctx.fillStyle = 'rgba(8, 8, 12, 0.25)';
       ctx.fillRect(0, 0, w, h);
 
-      // Círculo Mágico de Invocación
       const cx = w / 2;
       const cy = h / 2;
       const t = this.canvasTicks * 0.03;
@@ -222,7 +299,7 @@ export class HechizoVideoComponent implements OnChanges, AfterViewInit, OnDestro
       ctx.setLineDash([8, 6]);
       ctx.stroke();
 
-      // Triángulos de maná invertidos
+      // Triángulo de maná
       ctx.beginPath();
       for (let i = 0; i < 3; i++) {
         const ang = (i * 2 * Math.PI) / 3;
@@ -238,10 +315,9 @@ export class HechizoVideoComponent implements OnChanges, AfterViewInit, OnDestro
 
       ctx.restore();
 
-      // Tajos o ráfagas de energía cortante
+      // Ráfagas cortantes de maná
       ctx.save();
-      const numSlashes = 3;
-      for (let i = 0; i < numSlashes; i++) {
+      for (let i = 0; i < 3; i++) {
         const phase = (this.canvasTicks * 0.05 + i * 1.5) % 4;
         if (phase < 1.2) {
           ctx.beginPath();

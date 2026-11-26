@@ -7,19 +7,20 @@ const STORAGE_KEY = 'black_clover_progreso_jugador_v1';
   providedIn: 'root'
 })
 export class ProgresoJugadorService {
-  readonly progreso = signal<Record<string, ProgresoPersonaje>>({});
+  private readonly _progreso = signal<Record<string, ProgresoPersonaje>>({});
+  readonly progreso = this._progreso.asReadonly();
 
   readonly estrellasTotales = computed(() => {
-    const p = this.progreso();
-    return Object.values(p).reduce((sum, item) => sum + (item.estrellas || 0), 100); // 100 estrellas iniciales de regalo
+    const p = this._progreso();
+    return Object.values(p).reduce((sum, item) => sum + (item.estrellas || 0), 100); // 100 estrellas base
   });
 
   constructor() {
     this.cargarDesdeStorage();
 
-    // Auto-persistencia en localStorage ante cambios
+    // Auto-persistencia en localStorage con Signals effect()
     effect(() => {
-      const data = this.progreso();
+      const data = this._progreso();
       if (typeof localStorage !== 'undefined' && Object.keys(data).length > 0) {
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -35,9 +36,8 @@ export class ProgresoJugadorService {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
-        this.progreso.set(JSON.parse(raw));
+        this._progreso.set(JSON.parse(raw));
       } else {
-        // Inicializar progreso por defecto para Asta, Yuno, Noelle y Yami
         const inicial: Record<string, ProgresoPersonaje> = {
           asta: {
             estrellas: 100,
@@ -64,7 +64,7 @@ export class ProgresoJugadorService {
             misionesCompletadas: []
           }
         };
-        this.progreso.set(inicial);
+        this._progreso.set(inicial);
       }
     } catch (e) {
       console.warn('Error cargando progreso inicial:', e);
@@ -72,7 +72,7 @@ export class ProgresoJugadorService {
   }
 
   obtenerProgresoPersonaje(personajeId: string): ProgresoPersonaje {
-    const p = this.progreso()[personajeId];
+    const p = this._progreso()[personajeId];
     if (p) return p;
     return {
       estrellas: 50,
@@ -83,7 +83,7 @@ export class ProgresoJugadorService {
   }
 
   estaDesbloqueado(personajeId: string, hechizoId: string, costo: number = 0): boolean {
-    if (costo === 0) return true; // Habilidades gratuitas siempre desbloqueadas
+    if (costo === 0) return true;
     const prog = this.obtenerProgresoPersonaje(personajeId);
     return prog.hechizosDesbloqueados.includes(hechizoId);
   }
@@ -93,7 +93,7 @@ export class ProgresoJugadorService {
     if (prog.hechizosDesbloqueados.includes(hechizoId)) return true;
     if (prog.estrellas < costo) return false;
 
-    this.progreso.update(current => {
+    this._progreso.update(current => {
       const p = current[personajeId] || {
         estrellas: 0,
         mejorDistanciaMetros: 0,
@@ -114,7 +114,7 @@ export class ProgresoJugadorService {
   }
 
   sumarEstrellas(personajeId: string, cantidad: number) {
-    this.progreso.update(current => {
+    this._progreso.update(current => {
       const p = current[personajeId] || {
         estrellas: 0,
         mejorDistanciaMetros: 0,
@@ -126,6 +126,24 @@ export class ProgresoJugadorService {
         [personajeId]: {
           ...p,
           estrellas: p.estrellas + cantidad
+        }
+      };
+    });
+  }
+
+  registrarDistancia(personajeId: string, metros: number) {
+    this._progreso.update(current => {
+      const p = current[personajeId] || {
+        estrellas: 0,
+        mejorDistanciaMetros: 0,
+        hechizosDesbloqueados: [],
+        misionesCompletadas: []
+      };
+      return {
+        ...current,
+        [personajeId]: {
+          ...p,
+          mejorDistanciaMetros: Math.max(p.mejorDistanciaMetros, metros)
         }
       };
     });
